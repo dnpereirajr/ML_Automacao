@@ -37,6 +37,7 @@ def main():
             print("1. Copie o arquivo .env.example para .env")
             print("2. Preencha suas credenciais no arquivo .env")
             print("3. Execute o programa novamente")
+            input("Pressione Enter para sair...")
             return
         
         # Inicia a interface terminal
@@ -45,6 +46,7 @@ def main():
         
     except Exception as e:
         print(f"Erro fatal: {e}")
+        input("Pressione Enter para sair...")
         return 1
     
     return 0
