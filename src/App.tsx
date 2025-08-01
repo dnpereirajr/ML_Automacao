@@ -294,7 +294,7 @@ function App() {
                       <h4 className="font-medium">2. Senha de App do Gmail:</h4>
                       <p className="text-sm">
                         • Acesse <a href="https://myaccount.google.com/security" target="_blank" className="text-blue-600 underline">Conta Google → Segurança</a><br/>
-                        • Ative a "Verificação em duas etapas" primeiro<br/>
+                        • Ative a "Verificação em duas etapas\" primeiro<br/>
                         • Depois procure por "Senhas de app" na mesma página<br/>
                         • Gere uma senha para "Outro (nome personalizado)"<br/>
                         • Use essa senha de 16 caracteres no campo Gmail Password
