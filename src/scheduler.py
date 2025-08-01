@@ -84,14 +84,25 @@ class AutomationScheduler:
             
             logger.info(f"Enviando {len(products)} produtos...")
             
-            # Envia email
-            if self.notification_manager.send_email(products):
-                logger.info("Email enviado com sucesso!")
+            # Envia email (se habilitado)
+            if Config.ENABLE_EMAIL:
+                if self.notification_manager.send_email(products):
+                    logger.info("Email enviado com sucesso!")
+                else:
+                    logger.warning("Falha no envio do email")
+            else:
+                logger.info("Envio por email desabilitado")
             
-            # Envia WhatsApp (apenas os 5 melhores)
-            top_products = products[:5]
-            if self.notification_manager.send_whatsapp_messages(top_products):
-                logger.info("Mensagens WhatsApp agendadas com sucesso!")
+            # Envia WhatsApp (se habilitado)
+            if Config.ENABLE_WHATSAPP:
+                # Para WhatsApp apenas, pode enviar mais produtos (até 10)
+                whatsapp_products = products[:10] if not Config.ENABLE_EMAIL else products[:5]
+                if self.notification_manager.send_whatsapp_messages(whatsapp_products):
+                    logger.info(f"Mensagens WhatsApp agendadas com sucesso! ({len(whatsapp_products)} produtos)")
+                else:
+                    logger.warning("Falha no envio do WhatsApp")
+            else:
+                logger.info("Envio por WhatsApp desabilitado")
             
         except Exception as e:
             logger.error(f"Erro no ciclo de envio: {e}")

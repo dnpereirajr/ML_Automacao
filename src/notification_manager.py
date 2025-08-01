@@ -31,6 +31,10 @@ class NotificationManager:
     def send_email(self, products: List[Product]):
         """Envia email com todos os produtos"""
         try:
+            if not Config.ENABLE_EMAIL:
+                logger.info("Envio por email desabilitado")
+                return True
+                
             if not self.gmail_client or not products:
                 return False
             
@@ -53,6 +57,10 @@ class NotificationManager:
     def send_whatsapp_messages(self, products: List[Product]):
         """Envia mensagens separadas por produto no WhatsApp"""
         try:
+            if not Config.ENABLE_WHATSAPP:
+                logger.info("Envio por WhatsApp desabilitado")
+                return True
+                
             if not Config.WHATSAPP_PHONE or not products:
                 return False
             

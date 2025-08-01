@@ -53,7 +53,9 @@ function App() {
     gmailPassword: '',
     whatsappPhone: '',
     affiliateId: 'ML_DEFAULT',
-    intervalHours: 1
+    intervalHours: 1,
+    enableEmail: true,
+    enableWhatsapp: true
   });
 
   const [products, setProducts] = useState<Product[]>([]);
@@ -308,6 +310,15 @@ function App() {
                         Use esta interface web ou adicione <code className="bg-yellow-200 px-1 rounded">input("Pressione Enter...")</code> no final do main.py para manter o terminal aberto.
                       </p>
                     </div>
+
+                    <div>
+                      <h4 className="font-medium">4. Apenas WhatsApp:</h4>
+                      <p className="text-sm">
+                        Para receber apenas no WhatsApp, desmarque a opção "Enviar por Email" nas configurações. 
+                        Você pode deixar os campos de Gmail vazios se não for usar email. 
+                        O sistema enviará até 10 produtos por WhatsApp quando o email estiver desabilitado.
+                      </p>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -469,6 +480,39 @@ function App() {
                   />
                 </div>
 
+                <div className="space-y-3">
+                  <label className="block text-sm font-medium text-gray-700">
+                    Canais de Envio
+                  </label>
+                  
+                  <div className="flex items-center space-x-3">
+                    <input
+                      type="checkbox"
+                      id="enableEmail"
+                      checked={config.enableEmail}
+                      onChange={(e) => setConfig(prev => ({ ...prev, enableEmail: e.target.checked }))}
+                      className="w-4 h-4 text-blue-600 border-gray-300 rounded focus:ring-blue-500"
+                    />
+                    <label htmlFor="enableEmail" className="text-sm text-gray-700 flex items-center space-x-2">
+                      <Mail className="w-4 h-4" />
+                      <span>Enviar por Email</span>
+                    </label>
+                  </div>
+                  
+                  <div className="flex items-center space-x-3">
+                    <input
+                      type="checkbox"
+                      id="enableWhatsapp"
+                      checked={config.enableWhatsapp}
+                      onChange={(e) => setConfig(prev => ({ ...prev, enableWhatsapp: e.target.checked }))}
+                      className="w-4 h-4 text-blue-600 border-gray-300 rounded focus:ring-blue-500"
+                    />
+                    <label htmlFor="enableWhatsapp" className="text-sm text-gray-700 flex items-center space-x-2">
+                      <MessageCircle className="w-4 h-4" />
+                      <span>Enviar por WhatsApp</span>
+                    </label>
+                  </div>
+                </div>
                 <button className="w-full bg-blue-600 hover:bg-blue-700 text-white py-2 px-4 rounded-lg font-medium transition-colors">
                   Salvar Configurações
                 </button>
